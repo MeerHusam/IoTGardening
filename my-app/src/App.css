@@ -90,3 +90,28 @@ h1 {
     height: 200px; /* Adjust height for small screens */
   }
 }
+
+.navigate-button {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  padding: 10px 15px;
+  background-color: #4CAF50; /* Green background */
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2);
+  transition: 0.3s;
+  font-size: 1rem;
+  font-weight: 500;
+}
+
+.navigate-button:hover {
+  background-color: #45a049; /* Darker shade of green */
+  box-shadow: 0 6px 12px 0 rgba(0,0,0,0.3);
+}
+
+/* If your app has a header, you might need to adjust the top and left values */
+
+/* ... existing styles ... */

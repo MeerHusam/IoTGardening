@@ -10,6 +10,7 @@ const SensorChart = ({ title, data }) => {
         label: title,
         data: data.map(d => d.value),
         fill: true,
+        fill: false,
         backgroundColor: 'rgba(75, 192, 192, 0.2)',
         borderColor: 'rgb(75, 192, 192)',
         borderWidth: 2,
@@ -74,10 +75,13 @@ const SensorChart = ({ title, data }) => {
   }
 
   return (
-    <div style={{ height: '400px', width: '100%' }}> {/* Increase the height of the chart container */}
+    <div style={{ height: '400px', width: '100%' }}> 
       <Line data={chartData} options={chartOptions} />
     </div>
   );
+
+  
 };
 
 export default SensorChart;
+
