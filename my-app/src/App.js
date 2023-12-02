@@ -1,9 +1,10 @@
-
-
 import React, { useState , useEffect } from 'react';
 import SensorChart from './SensorChart';
 import Profile from './Profile';
 import './App.css';
+import { database } from './firebase'; // import the database from your firebase.js
+import { ref, onValue, off } from 'firebase/database';
+
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -16,70 +17,33 @@ function App() {
   const [humidityData, setHumidityData] = useState([]);
   const [moistureData, setMoistureData] = useState([]);
 
-  /*useEffect(() => {
-    const socket = new WebSocket('ws://localhost:3000');
-    socket.addEventListener('open', function (event) {
-      console.log('Connected to the WebSocket server');
-    });
-    socket.addEventListener('message', function (event) {
-      const data = JSON.parse(event.data);
-  
-      // Update the sensorData state with the latest readings
-      setSensorData({
-        temperature: data.temperature || sensorData.temperature,
-        soilMoisture: data.moisture || sensorData.soilMoisture,
-        humidity: data.humidity || sensorData.humidity,
-      });
-  
-      // Update the arrays for the charts
-      if (data.temperature) {
-        setTemperatureData(prevTemps => [...prevTemps, data.temperature]);
-      }
-      if (data.humidity) {
-        setHumidityData(prevHumidities => [...prevHumidities, data.humidity]);
-      }
-      if (data.moisture) {
-        setMoistureData(prevMoistures => [...prevMoistures, data.moisture]);
-      }
-    });
-    return () => {
-      socket.close();
-    };
-  }, [sensorData]);*/
 
   useEffect(() => {
-    // Sample data array
-    const sampleData = [
-      { temperature: 23, humidity: 45, moisture: 12 },
-      { temperature: 27, humidity: 50, moisture: 15 },
-      // ... Add more sample data points here
-    ];
+    const sensorRef = ref(database, 'Sensor');
   
-    let dataIndex = 0;
-  
-    // Update state with a new data point every 2 seconds
-    const interval = setInterval(() => {
-      if (dataIndex < sampleData.length) {
-        const data = sampleData[dataIndex++];
+    const unsubscribe = onValue(sensorRef, (snapshot) => {
+      const data = snapshot.val();
+      if (data) {
         setSensorData({
-          temperature: data.temperature,
-          soilMoisture: data.moisture,
-          humidity: data.humidity,
+          temperature: data.temperature_celsius,
+          soilMoisture: data.soil_moisture_level,
+          humidity: data.humidity_level,
         });
-        setTemperatureData(prev => [...prev, data.temperature]);
-        setHumidityData(prev => [...prev, data.humidity]);
-        setMoistureData(prev => [...prev, data.moisture]);
-      }
-    }, 2000);
   
-    // Cleanup the interval
-    return () => clearInterval(interval);
+        const currentTime = new Date().toLocaleTimeString();
+        setTemperatureData(prev => [...prev, { time: currentTime, value: data.temperature_celsius }]);
+        setHumidityData(prev => [...prev, { time: currentTime, value: data.humidity_level }]);
+        setMoistureData(prev => [...prev, { time: currentTime, value: data.soil_moisture_level }]);
+      }
+    });
+  
+    // Cleanup the subscription
+    return () => {
+      unsubscribe();
+    };
   
   }, []);
-  
-  
 
-  // setTemperatureData([23, 34, 45, 54, 56, 77, 67, 88, 67, 120]);
 
   const navigateToProfile = () => setCurrentPage('profile');
   const navigateToDashboard = () => setCurrentPage('dashboard');
@@ -107,11 +71,12 @@ function App() {
             </div>
           </header>
           <main>
-            <div className="chart-container">
-              <SensorChart title="Temperature" data={temperatureData} />
-              <SensorChart title="Humidity" data={humidityData} />
-              <SensorChart title="Soil Moisture" data={moistureData} />
-            </div>
+          <div className="chart-container">
+  <SensorChart title="Temperature" data={temperatureData} />
+  <SensorChart title="Humidity" data={humidityData} />
+  <SensorChart title="Soil Moisture" data={moistureData} />
+</div>
+
           </main>
         </>
       ) : (
@@ -125,10 +90,3 @@ function App() {
 }
 
 export default App;
-
-
-
-
-
-
-
