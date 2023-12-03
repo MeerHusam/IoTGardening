@@ -112,6 +112,27 @@ h1 {
   box-shadow: 0 6px 12px 0 rgba(0,0,0,0.3);
 }
 
-/* If your app has a header, you might need to adjust the top and left values */
+.add-water-button-container {
+    display: flex;
+    justify-content: flex-end; /* Aligns the button to the right */
+    margin-top: 10px;
+    padding-right: 175px; /* Space from the right edge */
+}
 
-/* ... existing styles ... */
+.add-water-button {
+  padding: 15px 20px; /* Increased padding for a larger button */
+  font-size: 1.2rem; /* Larger font size for better readability */
+  background-color: #4CAF50;
+  color: white;
+  border: none;
+  border-radius: 6px; /* Slightly larger radius for a proportionate look */
+  cursor: pointer;
+  /* Other existing styles */
+}
+
+.add-water-button:hover {
+  background-color: #367c39; /* Darker shade on hover */
+  /* Other existing hover styles */
+}
+
+

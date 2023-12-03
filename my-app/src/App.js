@@ -48,6 +48,14 @@ function App() {
   const navigateToProfile = () => setCurrentPage('profile');
   const navigateToDashboard = () => setCurrentPage('dashboard');
 
+  const handleAddWater = () => {
+    console.log('Water added to the plant!');
+
+    // Here you can add the actual functionality you need
+    // For example, updating the state or making an API call
+  };
+
+
   return (
     <div className="App">
       {currentPage === 'dashboard' ? (
@@ -61,14 +69,20 @@ function App() {
                 <span className="data-value">{sensorData.temperature}°C</span>
               </div>
               <div className="grid-item">
-                <span className="data-label">Soil Moisture:</span>
-                <span className="data-value">{sensorData.soilMoisture}%</span>
-              </div>
-              <div className="grid-item">
                 <span className="data-label">Humidity:</span>
                 <span className="data-value">{sensorData.humidity}%</span>
               </div>
+              <div className="grid-item">
+                <span className="data-label">Soil Moisture:</span>
+                <span className="data-value">{sensorData.soilMoisture}%</span>
+              </div>
             </div>
+            <div className="add-water-button-container">
+              <button className="add-water-button" onClick={handleAddWater}>
+                Add Water
+              </button>
+            </div>
+           
           </header>
           <main>
           <div className="chart-container">
