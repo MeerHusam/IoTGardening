@@ -4,10 +4,6 @@ import Profile from './Profile';
 import './App.css';
 import { database } from './firebase'; // import the database from your firebase.js
 import { ref, onValue, off } from 'firebase/database';
-function mapToPercentage(value) {
-  const maxValue = 4095;
-  return (value / maxValue * 100).toFixed(2); // toFixed(2) 用于保留两位小数
-}
 
 
 function App() {
@@ -20,6 +16,7 @@ function App() {
   const [temperatureData, setTemperatureData] = useState([]);
   const [humidityData, setHumidityData] = useState([]);
   const [moistureData, setMoistureData] = useState([]);
+  const [waterlevelData, setWaterlevelData] = useState([]);
 
 
   useEffect(() => {
@@ -30,7 +27,7 @@ function App() {
       if (data) {
         setSensorData({
           temperature: data.temperature_celsius,
-          soilMoisture:mapToPercentage(data.soil_moisture_level),
+          soilMoisture:data.soil_moisture_level,
           humidity: data.humidity_level,
         });
   
