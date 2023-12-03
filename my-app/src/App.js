@@ -3,12 +3,37 @@ import SensorChart from './SensorChart';
 import Profile from './Profile';
 import './App.css';
 import { database } from './firebase'; // import the database from your firebase.js
-import { ref, onValue, off } from 'firebase/database';
-function mapToPercentage(value) {
-  const maxValue = 4095;
-  return (value / maxValue * 100).toFixed(2); // toFixed(2) 用于保留两位小数
+import { ref, onValue, off,get } from 'firebase/database';
+function determineCondition(temperature, humidity, soilMoisture) {
+  if (temperature > 27 || temperature < 16) {
+    return "bad";
+  }
+  if (humidity > 80 || humidity < 40) {
+    return "bad";
+  }
+  if (soilMoisture > 80 || soilMoisture < 40) {
+    return "bad";
+  }
+  return "good";
 }
 
+const saveDataToServer = async (sensorData) => {
+  try {
+    const response = await fetch('http://localhost:3001/save-data', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(sensorData),
+    });
+
+    if (response.ok) {
+      console.log('Data saved successfully');
+    } else {
+      console.error('Error saving data');
+    }
+  } catch (error) {
+    console.error('Network error:', error);
+  }
+};
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -25,14 +50,24 @@ function App() {
   useEffect(() => {
     const sensorRef = ref(database, 'Sensor');
   
-    const unsubscribe = onValue(sensorRef, (snapshot) => {
+    const unsubscribe =  onValue(sensorRef, (snapshot) => {
       const data = snapshot.val();
       if (data) {
-        setSensorData({
+        const timestamp = new Date().toISOString();
+        const condition = determineCondition(
+          data.temperature_celsius, 
+          data.humidity_level, 
+          data.soil_moisture_level
+        );
+        const mappedData=({
           temperature: data.temperature_celsius,
-          soilMoisture:mapToPercentage(data.soil_moisture_level),
+          soilMoisture:data.soil_moisture_level,
           humidity: data.humidity_level,
+          timestamp,
+          condition,
         });
+        setSensorData(mappedData);
+        saveDataToServer(mappedData);
   
         const currentTime = new Date().toLocaleTimeString();
         setTemperatureData(prev => [...prev, { time: currentTime, value: data.temperature_celsius }]);
