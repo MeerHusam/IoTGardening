@@ -1,41 +1,68 @@
 
-/* General Layout */
+
 /*.profile-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
     min-height: 100vh;
-
-    
     background-image: url('/IoTFarm.png'); 
-    background-size: cover; 
-    background-position: center; 
-    background-repeat: no-repeat; 
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
 }
-
 
 .profile-section {
-    background-color: #ffffff; 
+    background-color: rgba(255, 255, 255, 0.8); 
     padding: 15px;
-    border-radius: 8px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    overflow: hidden;
-    transition: box-shadow 0.3s ease-in-out;
+    border-radius: 10px;
+    position: relative; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); 
+
+    
+    margin: 25px; 
+
+    &:before {
+        content: '';
+        position: absolute;
+        top: -25px; 
+        left: -25px;
+        right: -25px;
+        bottom: -25px;
+        border-radius: 15px;
+        z-index: -1; 
+        background: linear-gradient(45deg, violet, indigo, blue, green, yellow, orange, red);
+    }
+
+    &:after {
+        content: '';
+        position: absolute;
+        top: -30px; 
+        left: -30px;
+        right: -30px;
+        bottom: -30px;
+        border-radius: 20px;
+        z-index: -2; 
+        background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
+    }
 }
+
+
 
 .profile-section:hover {
     box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
 }
 
+
 .user-info-section {
     grid-column: 1 / 2; 
     display: flex;
     align-items: center;
-    background-color: #8d6e63; 
+    background-color: rgba(100, 149, 237, 0.5); 
     color: white;
     padding: 10px;
 }
+
 
 .user-info-picture {
     width: 80px; 
@@ -56,10 +83,11 @@
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
+    background-color: rgba(100, 149, 237, 0.5); 
 }
 
+
 .device-card {
-    background-color: #a1887f; 
     padding: 10px;
     border-radius: 5px;
     display: flex;
@@ -70,18 +98,15 @@
 
 .data-display {
     grid-column: 1 / 4; 
-    background-color: #a5d6a7; 
+    background-color: rgba(165, 214, 167, 0.8); 
     
 }
 
 
 .historical-data {
     grid-column: 1 / 4; 
-    background-color: #ffecb3; 
+    background-color: rgba(255, 236, 179, 0.8); 
 }
-
-
-
 
 @media (max-width: 768px) {
     .profile-container {
@@ -92,52 +117,55 @@
     .reports-section, .community-section, .help-section {
         grid-column: 1 / 2;
     }
-}*/
+}
+*/
 
-/* General Layout */
+
+
+
 .profile-container {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
     padding: 20px;
     min-height: 100vh;
-    background-image: url('/IoTFarm.png'); /* Ensure your image path is correct */
+    background-image: url('/IoTFarm.png'); 
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
 }
 
 .profile-section {
-    background-color: rgba(255, 255, 255, 0.8); /* Semi-transparent white */
+    background-color: rgb(255, 255, 255, 0.8); 
     padding: 15px;
     border-radius: 10px;
-    position: relative; /* For pseudo-elements */
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2); /* Inner shadow for depth */
+    position: relative; 
+    box-shadow: 0 0 10px rgb(0, 0, 0, 0.2); 
 
-    /* Adjusting margins to accommodate the border */
-    margin: 25px; /* Space for the outer border */
+    
+    margin: 25px; 
 
     &:before {
         content: '';
         position: absolute;
-        top: -25px; /* Positioning the border */
+        top: -25px; 
         left: -25px;
         right: -25px;
         bottom: -25px;
         border-radius: 15px;
-        z-index: -1; /* Behind the content but within the section */
+        z-index: -1; 
         background: linear-gradient(45deg, violet, indigo, blue, green, yellow, orange, red);
     }
 
     &:after {
         content: '';
         position: absolute;
-        top: -30px; /* Larger border */
+        top: -30px; 
         left: -30px;
         right: -30px;
         bottom: -30px;
         border-radius: 20px;
-        z-index: -2; /* Behind the :before pseudo-element */
+        z-index: -2; 
         background: linear-gradient(135deg, red, orange, yellow, green, blue, indigo, violet);
     }
 }
@@ -145,40 +173,54 @@
 
 
 .profile-section:hover {
-    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 6px 12px rgb(0, 0, 0, 0.2);
 }
 
-/* User Information Section */
+
 .user-info-section {
-    grid-column: 1 / 2; /* Occupies one column */
+    grid-column: 1 / 2; 
     display: flex;
     align-items: center;
-    background-color: rgba(100, 149, 237, 0.5); /* More faded semi-transparent blue */
+    background-color: rgb(100, 148, 237); 
     color: white;
     padding: 10px;
 }
 
 
-.user-info-picture {
-    width: 80px; /* Slightly smaller */
-    height: 80px;
-    background-color: #bdbdbd; /* Placeholder for picture, neutral grey */
-    border-radius: 50%;
-    border: 3px solid white;
-    margin-right: 15px;
+
+.user-info-section {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
 }
+
+.user-info-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background-size: cover;
+    background-position: center;
+    margin-bottom: 15px;
+}
+
+.user-info-picture.default {
+    background-color: white;
+}
+
+
+
 
 .user-info-details {
     flex-grow: 1;
 }
 
-/* Device List */
+
 .device-list {
-    grid-column: 2 / 4; /* Expanded to take up two columns */
+    grid-column: 2 / 4; 
     display: grid;
     grid-template-columns: 1fr 1fr;
     gap: 10px;
-    background-color: rgba(100, 149, 237, 0.5); /* More faded semi-transparent blue */
+    background-color: rgb(100, 148, 237); 
 }
 
 
@@ -190,22 +232,19 @@
     justify-content: space-between;
 }
 
-/* Real-Time Data Display */
+
 .data-display {
-    grid-column: 1 / 4; /* Expanded to span all columns */
-    background-color: rgba(165, 214, 167, 0.8); /* Soft green with opacity */
-    /* Consider adding more rows or specific layouts for charts/gauges */
+    grid-column: 1 / 4; 
+    background-color: #98FB98; 
+    
 }
 
-/* Historical Data Access */
+
 .historical-data {
-    grid-column: 1 / 4; /* Ensures it spans all columns */
-    background-color: rgba(255, 236, 179, 0.8); /* Light beige with opacity */
+    grid-column: 1 / 4; 
+    background-color: #FFEFD5; 
 }
 
-/* Additional styles for alerts, location, device configuration, etc. */
-
-/* Responsiveness */
 @media (max-width: 768px) {
     .profile-container {
         grid-template-columns: 1fr;
@@ -215,5 +254,55 @@
     .reports-section, .community-section, .help-section {
         grid-column: 1 / 2;
     }
+}
+
+/* Styles for the sensor image, name, and status in the device sensor and status block */
+
+.sensor-block {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    border-radius: 10px;
+    background-color: #f0f0f0;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 10px;
+}
+
+.sensor-image {
+    width: 100px;
+    height: auto;
+    border-radius: 5px;
+    margin-bottom: 15px;
+}
+
+.sensor-name {
+    font-size: 18px;
+    font-weight: 600;
+    color: #333333;
+    margin-bottom: 5px;
+}
+
+.sensor-status {
+    font-size: 16px;
+    color: #666666;
+}
+
+/* Add this to your existing Profile.css */
+.edit-profile-photo {
+    display: inline-block;
+    padding: 6px 12px;
+    margin-top: 10px;
+    font-size: 14px;
+    color: white;
+    background-color: #00ff1a;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.edit-profile-photo:hover {
+    background-color: #0056b3;
 }
 

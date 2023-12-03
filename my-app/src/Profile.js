@@ -33,17 +33,16 @@ const Profile = () => {
 
 export default Profile;*/
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import './Profile.css';
 // Import additional components as needed
 
 const Profile = () => {
-    // Placeholder data - replace with real data and logic
-    const user = {
-        name: 'John Doe',
-        email: 'john.doe@example.com',
-        profilePicture: '/path/to/image.jpg' // Replace with actual image path
-    };
+    const [user, setUser] = useState({
+        name: '', // User's name
+        email: '', // User's email
+        profilePicture: '' // Default profile picture URL
+    });
 
     const devices = [
         { name: 'Device 1', type: 'Sensor', status: 'Online' },
@@ -55,16 +54,51 @@ const Profile = () => {
     const realTimeData = <div className="data-chart">Real-time Data Chart</div>;
     const historicalData = <div>Historical Data View</div>;
 
+    useEffect(() => {
+        const savedImage = localStorage.getItem('profilePicture');
+        if (savedImage) {
+            setUser((prevState) => ({ ...prevState, profilePicture: savedImage }));
+        }
+    }, []);
+
+    const handleProfileImageChange = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const newImage = e.target.result;
+                setUser((prevState) => ({ ...prevState, profilePicture: newImage }));
+                localStorage.setItem('profilePicture', newImage); // Update Local Storage
+            };
+            reader.readAsDataURL(file);
+        }
+    };
+
+
+
     return (
         <div className="profile-container">
             <div className="profile-section user-info-section">
-                <div className="user-info-picture" style={{ backgroundImage: `url(${user.profilePicture})` }}></div>
+                <div 
+                    className={user.profilePicture ? "user-info-picture" : "user-info-picture default"}
+                    style={{ backgroundImage: user.profilePicture ? `url(${user.profilePicture})` : 'none' }}
+                >
+                    {/* Hidden file input for uploading image */}
+                    <input type="file" id="fileInput" style={{ display: 'none' }} onChange={handleProfileImageChange} />
+                </div>
+                
+                {/* Button to trigger the file input */}
+                <button className="edit-profile-photo" onClick={() => document.getElementById('fileInput').click()}>
+                    Edit Profile Photo
+                </button>
+
                 <div className="user-info-details">
                     <p><strong>Name:</strong> {user.name}</p>
                     <p><strong>Email:</strong> {user.email}</p>
                     {/* Other user details */}
                 </div>
             </div>
+
 
             <div className="profile-section device-list">
                 {devices.map((device, index) => (
