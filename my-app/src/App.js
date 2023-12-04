@@ -3,7 +3,7 @@ import SensorChart from './SensorChart';
 import Profile from './Profile';
 import './App.css';
 import { database } from './firebase'; // import the database from your firebase.js
-import { ref, onValue, off,get } from 'firebase/database';
+import { ref, set, onValue, off,get } from 'firebase/database';
 function determineCondition(temperature, humidity, soilMoisture) {
   if (temperature > 27 || temperature < 16) {
     return "bad";
@@ -90,10 +90,16 @@ function App() {
 
   const handleAddWater = () => {
     console.log('Water added to the plant!');
-
-    // Here you can add the actual functionality you need
-    // For example, updating the state or making an API call
+    const pumpRef = ref(database, 'Pump/water_pump');
+    set(pumpRef, true)
+      .then(() => {
+        console.log('Pump value set to true');
+      })
+      .catch((error) => {
+        console.error('Error updating pump value:', error);
+      });
   };
+  
 
 
   return (
