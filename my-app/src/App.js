@@ -2,7 +2,7 @@ import React, { useState , useEffect } from 'react';
 import SensorChart from './SensorChart';
 import Profile from './Profile';
 import './App.css';
-import { database } from './firebase'; // import the database from your firebase.js
+import { database } from './firebase'; 
 import { set, ref, onValue, off,get } from 'firebase/database';
 import dropletImage from './RainDroplet.png';
 import weatherIcon from './weather-icon.png';
