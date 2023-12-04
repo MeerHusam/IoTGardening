@@ -4,7 +4,7 @@ import Profile from './Profile';
 import './App.css';
 import { database } from './firebase'; // import the database from your firebase.js
 import { set, ref, onValue, off,get } from 'firebase/database';
-import dropletImage from './RainDroplet.png';
+
 import weatherIcon from './weather-icon.png';
 import humidityIcon from './HumidityIcon.png';
 import soilMoistureIcon from './SoilMoistureIcon.png';
@@ -41,11 +41,11 @@ const saveDataToServer = async (sensorData) => {
 };
 
 
-const WaterLevelIndicator = () => {
+/*const WaterLevelIndicator = () => {
   return (
     <img src={dropletImage} alt="Water Level" className="droplet-icon" />
   );
-};
+};*/
 
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
@@ -57,8 +57,13 @@ function App() {
   const [temperatureData, setTemperatureData] = useState([]);
   const [humidityData, setHumidityData] = useState([]);
   const [moistureData, setMoistureData] = useState([]);
-  const [waterlevelData, setWaterlevelData] = useState(50);
+  const [waterlevel, setWaterlevel] = useState(50);
   const [sliderValue, setSliderValue] = React.useState(50)
+
+  
+  const waterLevel = 50;
+  const whiteDropletHeight = `${waterLevel}%`
+  
 
   useEffect(() => {
     // Fetching logic here
@@ -130,16 +135,14 @@ function App() {
     <div className="App">
       {currentPage === 'dashboard' ? (
         <>
-          <button onClick={navigateToProfile} className="navigate-button">Go to Profile</button>
+          {/*<button onClick={navigateToProfile} className="navigate-button">Go to Profile</button>*/}
           <header className="App-header">
             <div className="header-row">
               <h1>Sensor Data Dashboard</h1>
-              <div className="water-level-indicator-container">
-                <WaterLevelIndicator />
-              </div>
+              
             </div>
           </header> 
-            {/*<div className = 'sensor-data'>*/}
+            
               <div className="grid-container">
                 <div className="grid-itemA">
                   <div className="temperature-details">
@@ -170,16 +173,18 @@ function App() {
                   </div>
                 </div>
               </div>
-              {/*<div className="add-water-button-container">
-                <button className="add-water-button" onClick={handleAddWater} >
-                  Add Water
-                </button>
-      </div>*/}
-            {/*</div>*/}
-          {/*</header>*/}
           <main>
-          <div className="chart-container">
-  <SensorChart title="Temperature" data={temperatureData} />
+<div className="chart-container">
+  <div className="graphContainer">
+    <SensorChart title="Temperature" data={temperatureData} />
+    {/*<div className="water-level-indicator-container">
+      <img src={blueDropletImage} alt="Full Water Level" className="droplet-icon" />
+      <div className="water-level-indicator" style={{ top: whiteDropletHeight }}> 
+        <img src={whiteDropletImage} alt="Empty Water Level" className="droplet-icon-overlay" />
+      </div>
+      <img src={whiteDropletImage} alt="Water Level" className="droplet-icon" />
+      </div>*/}
+  </div>
   <div className="graphContainer">
     <SensorChart title="Humidity" data={humidityData} />
     <div className="slider-section">
@@ -203,26 +208,6 @@ function App() {
         <button onClick={() => console.log('Water added')}>Pour Water</button>
     </div>
   </div>
-  {/*<div className="slider-button-container">*/}
-    
-    {/*<div className="slider-section">
-      <div className="slider-container">
-        <input
-          type="range"
-          className="slider"
-          min="0"
-          max="100"
-          value={sliderValue}
-          onChange={(e) => setSliderValue(e.target.value)}
-        />
-      </div>
-      <div className="slider-value">Value: {sliderValue}</div>
-    </div>*/}
-    {/*<button className="add-water-button" onClick={handleAddWater}>Pour Water</button>*/}
-    
-  {/*</div>*/}
-
-  
 </div>
 
           </main>

@@ -14,8 +14,9 @@
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
   display: flex;
-  justify-content: space-between; /* Aligns items to each end */
+  justify-content: center; /* Aligns items to each end */
   align-items: center;
+  text-align: center;
 }
 
 .header-row {
@@ -29,10 +30,7 @@
   margin-left: auto;
 }
 
-.droplet-icon {
-  width: 30px; /* Adjust the size as necessary */
-  height: auto; /* Maintains the aspect ratio */
-}
+
 
 .sensor-data-row {
   display: flex;
@@ -40,19 +38,11 @@
   margin-top: 20px; /* Add some space between the rows */
 }
 
+
 h1 {
   color: #61dafb;
   margin-bottom: 2rem;
 }
-
-/* Grid layout for sensor data at the top */
-/*.grid-container {
-  background: #282c34;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 1rem;
-  margin-bottom: 2rem;
-}*/
 
 .grid-container {
   width: calc(100% - 40px); 
@@ -64,7 +54,7 @@ h1 {
   grid-template-columns: repeat(3, minmax(0, 1fr));
   min-height: 120px; 
   gap: 1rem; 
-  margin-bottom: 2rem;
+  margin-bottom: 20px;
 }
 
 
@@ -304,5 +294,39 @@ h1 {
 
 .button-container button:hover {
   background-color: #007bff; /* Darker shade on hover */
+}
+
+.water-level-indicator-container {
+  position: relative;
+  width: 60px; /* Match the width of your droplet icon */
+  height: 120px; /* Adjust based on the size of your droplet icon */
+}
+
+.droplet-icon-overlay {
+  display: block; /* Ensures the image uses the full parent height */
+  width: 100%;
+  height: auto;
+}
+
+.droplet-icon {
+  width: 100%;
+  height: auto;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/*.water-level-indicator {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  background-color: #FFF; 
+  transition: height 0.3s ease; 
+}*/
+
+.water-level-indicator {
+  position: absolute;
+  width: 100%;
+  overflow: hidden; /* Hides the part of the overlay that extends beyond this container */
 }
 
