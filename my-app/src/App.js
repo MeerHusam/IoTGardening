@@ -107,10 +107,16 @@ function App() {
 
   const handleAddWater = () => {
     console.log('Water added to the plant!');
-
-    // Here you can add the actual functionality you need
-    // For example, updating the state or making an API call
+    const pumpRef = ref(database, 'Pump/water_pump');
+    set(pumpRef, true)
+      .then(() => {
+        console.log('Pump value set to true');
+      })
+      .catch((error) => {
+        console.error('Error updating pump value:', error);
+      });
   };
+  
 
 
   return (
