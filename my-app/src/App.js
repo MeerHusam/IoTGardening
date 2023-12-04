@@ -2,7 +2,7 @@ import React, { useState , useEffect } from 'react';
 import SensorChart from './SensorChart';
 import Profile from './Profile';
 import './App.css';
-import { database } from './firebase'; // import the database from your firebase.js
+import { database } from './firebase'; 
 import { set, ref, onValue, off,get } from 'firebase/database';
 
 import weatherIcon from './weather-icon.png';
@@ -99,6 +99,8 @@ function App() {
         setMoistureData(prev => [...prev, { time: currentTime, value: data.soil_moisture_level }]);
       }
     });
+
+    
   
     // Cleanup the subscription
     return () => {
@@ -124,9 +126,22 @@ function App() {
   };
 
   const handleSliderChange = (event) => {
-    // Assuming `yourStateValue` is your state variable and `setYourStateValue` is the setter.
-    //setYourStateValue(event.target.value);
+    setSliderValue(parseInt(event.target.value, 10));
+    console.log(sliderValue.type);
   };
+
+  useEffect(() => {
+    const thresholdRef = ref(database, 'Values/threshold');
+    const intValue = parseInt(sliderValue, 10); 
+    set(thresholdRef, intValue)
+      .then(() => {
+        console.log('Threshold value updated to:', intValue);
+      })
+      .catch((error) => {
+        console.error('Error updating threshold value:', error);
+      });
+  }, [sliderValue]);
+  
   
   
 
@@ -205,7 +220,7 @@ function App() {
   <div className ="graphContainer">
     <SensorChart title="Soil Moisture" data={moistureData} />
     <div className="button-container">
-        <button onClick={() => console.log('Water added')}>Pour Water</button>
+        <button onClick={handleAddWater}>Pour Water</button>
     </div>
   </div>
 </div>
