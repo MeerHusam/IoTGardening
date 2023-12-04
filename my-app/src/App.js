@@ -3,7 +3,7 @@ import SensorChart from './SensorChart';
 import Profile from './Profile';
 import './App.css';
 import { database } from './firebase'; // import the database from your firebase.js
-import { ref, onValue, off,get } from 'firebase/database';
+import { set, ref, onValue, off,get } from 'firebase/database';
 import dropletImage from './RainDroplet.png';
 import weatherIcon from './weather-icon.png';
 import humidityIcon from './HumidityIcon.png';
@@ -58,6 +58,7 @@ function App() {
   const [humidityData, setHumidityData] = useState([]);
   const [moistureData, setMoistureData] = useState([]);
   const [waterlevelData, setWaterlevelData] = useState(50);
+  const [sliderValue, setSliderValue] = React.useState(50)
 
   useEffect(() => {
     // Fetching logic here
@@ -116,6 +117,12 @@ function App() {
         console.error('Error updating pump value:', error);
       });
   };
+
+  const handleSliderChange = (event) => {
+    // Assuming `yourStateValue` is your state variable and `setYourStateValue` is the setter.
+    //setYourStateValue(event.target.value);
+  };
+  
   
 
 
@@ -163,18 +170,59 @@ function App() {
                   </div>
                 </div>
               </div>
-              <div className="add-water-button-container">
-                <button className="add-water-button" onClick={handleAddWater}>
+              {/*<div className="add-water-button-container">
+                <button className="add-water-button" onClick={handleAddWater} >
                   Add Water
                 </button>
-              </div>
+      </div>*/}
             {/*</div>*/}
           {/*</header>*/}
           <main>
           <div className="chart-container">
   <SensorChart title="Temperature" data={temperatureData} />
-  <SensorChart title="Humidity" data={humidityData} />
-  <SensorChart title="Soil Moisture" data={moistureData} />
+  <div className="graphContainer">
+    <SensorChart title="Humidity" data={humidityData} />
+    <div className="slider-section">
+        <div className="slider-title">Update Threshold</div>
+        <div className="slider-container">
+          <input
+            type="range"
+            className="slider"
+            min="0"
+            max="100"
+            value={sliderValue}
+            onChange={(e) => setSliderValue(e.target.value)}
+          />
+        </div>
+        <div className="slider-value">Value: {sliderValue}</div>
+    </div>
+  </div>
+  <div className ="graphContainer">
+    <SensorChart title="Soil Moisture" data={moistureData} />
+    <div className="button-container">
+        <button onClick={() => console.log('Water added')}>Pour Water</button>
+    </div>
+  </div>
+  {/*<div className="slider-button-container">*/}
+    
+    {/*<div className="slider-section">
+      <div className="slider-container">
+        <input
+          type="range"
+          className="slider"
+          min="0"
+          max="100"
+          value={sliderValue}
+          onChange={(e) => setSliderValue(e.target.value)}
+        />
+      </div>
+      <div className="slider-value">Value: {sliderValue}</div>
+    </div>*/}
+    {/*<button className="add-water-button" onClick={handleAddWater}>Pour Water</button>*/}
+    
+  {/*</div>*/}
+
+  
 </div>
 
           </main>
