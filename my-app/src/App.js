@@ -4,6 +4,11 @@ import Profile from './Profile';
 import './App.css';
 import { database } from './firebase'; // import the database from your firebase.js
 import { ref, onValue, off,get } from 'firebase/database';
+import dropletImage from './RainDroplet.png';
+import weatherIcon from './weather-icon.png';
+import humidityIcon from './HumidityIcon.png';
+import soilMoistureIcon from './SoilMoistureIcon.png';
+
 function determineCondition(temperature, humidity, soilMoisture) {
   if (temperature > 27 || temperature < 16) {
     return "bad";
@@ -35,6 +40,13 @@ const saveDataToServer = async (sensorData) => {
   }
 };
 
+
+const WaterLevelIndicator = () => {
+  return (
+    <img src={dropletImage} alt="Water Level" className="droplet-icon" />
+  );
+};
+
 function App() {
   const [currentPage, setCurrentPage] = useState('dashboard');
   const [sensorData, setSensorData] = useState({
@@ -45,7 +57,12 @@ function App() {
   const [temperatureData, setTemperatureData] = useState([]);
   const [humidityData, setHumidityData] = useState([]);
   const [moistureData, setMoistureData] = useState([]);
-  const [waterlevelData, setWaterlevelData] = useState([]);
+  const [waterlevelData, setWaterlevelData] = useState(50);
+
+  useEffect(() => {
+    // Fetching logic here
+    // setWaterLevel(fetchedWaterLevel);
+  }, []);
 
 
   useEffect(() => {
@@ -102,28 +119,51 @@ function App() {
         <>
           <button onClick={navigateToProfile} className="navigate-button">Go to Profile</button>
           <header className="App-header">
-            <h1>Sensor Data Dashboard</h1>
-            <div className="grid-container">
-              <div className="grid-item">
-                <span className="data-label">Temperature:</span>
-                <span className="data-value">{sensorData.temperature}°C</span>
-              </div>
-              <div className="grid-item">
-                <span className="data-label">Humidity:</span>
-                <span className="data-value">{sensorData.humidity}%</span>
-              </div>
-              <div className="grid-item">
-                <span className="data-label">Soil Moisture:</span>
-                <span className="data-value">{sensorData.soilMoisture}%</span>
+            <div className="header-row">
+              <h1>Sensor Data Dashboard</h1>
+              <div className="water-level-indicator-container">
+                <WaterLevelIndicator />
               </div>
             </div>
-            <div className="add-water-button-container">
-              <button className="add-water-button" onClick={handleAddWater}>
-                Add Water
-              </button>
-            </div>
-           
-          </header>
+          </header> 
+            {/*<div className = 'sensor-data'>*/}
+              <div className="grid-container">
+                <div className="grid-itemA">
+                  <div className="temperature-details">
+                    <span className="data-label">Temperature:</span>
+                    <span className="data-value">{sensorData.temperature}°C</span>
+                  </div>
+                  <div className="temperature-icon">
+                    <img src={weatherIcon} alt="Temperature Icon" />
+                  </div>
+                </div>
+                <div className="grid-itemB">
+                  <div className="temperature-details">
+                    <span className="data-label">Humidity:</span>
+                    <span className="data-value">{sensorData.humidity}%</span>
+                  </div>
+                  <div className="temperature-icon">
+                    <img src={humidityIcon} alt="Humidity Icon" />
+                  </div>
+                  
+                </div>
+                <div className="grid-itemC">
+                  <div className="temperature-details">
+                    <span className="data-label">Soil Moisture:</span>
+                    <span className="data-value">{sensorData.soilMoisture}%</span>
+                  </div>
+                  <div className="temperature-icon">
+                    <img src={soilMoistureIcon} alt="Soil Moisture Icon" />
+                  </div>
+                </div>
+              </div>
+              <div className="add-water-button-container">
+                <button className="add-water-button" onClick={handleAddWater}>
+                  Add Water
+                </button>
+              </div>
+            {/*</div>*/}
+          {/*</header>*/}
           <main>
           <div className="chart-container">
   <SensorChart title="Temperature" data={temperatureData} />

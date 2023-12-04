@@ -13,6 +13,31 @@
   padding: 20px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   margin-bottom: 2rem;
+  display: flex;
+  justify-content: space-between; /* Aligns items to each end */
+  align-items: center;
+}
+
+.header-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.water-level-indicator-container {
+  /* Adjust if necessary to position the water level indicator at the end of the row */
+  margin-left: auto;
+}
+
+.droplet-icon {
+  width: 30px; /* Adjust the size as necessary */
+  height: auto; /* Maintains the aspect ratio */
+}
+
+.sensor-data-row {
+  display: flex;
+  justify-content: center; /* Center the data in the second row */
+  margin-top: 20px; /* Add some space between the rows */
 }
 
 h1 {
@@ -21,23 +46,71 @@ h1 {
 }
 
 /* Grid layout for sensor data at the top */
-.grid-container {
+/*.grid-container {
+  background: #282c34;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 1rem;
   margin-bottom: 2rem;
+}*/
+
+.grid-container {
+  width: calc(100% - 40px); 
+  display: grid;
+  justify-content: space-around; 
+  padding: 20px; 
+  background-color: #282c34;
+  margin: 0; 
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  min-height: 120px; 
+  gap: 1rem; 
+  margin-bottom: 2rem;
 }
 
-.grid-item {
-  background: white;
+
+
+.grid-itemA {
+  background: rgb(151, 255, 175);
   border-radius: 10px;
   box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
   padding: 1rem;
   display: flex;
-  flex-direction: column;
+  justify-content: space-between; /* Adjusts children to opposite sides */
   align-items: center;
-  justify-content: center;
 }
+
+.grid-itemB {
+  background: rgb(140, 245, 254);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between; /* Adjusts children to opposite sides */
+  align-items: center;
+}
+
+.grid-itemC {
+  background: rgb(255, 152, 253);
+  border-radius: 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between; /* Adjusts children to opposite sides */
+  align-items: center;
+}
+
+.temperature-details {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Aligns text to the left */
+}
+
+.temperature-icon img {
+  max-width: 50px; /* Example size, adjust as needed */
+  height: auto;
+  /* Add more styles if needed */
+}
+
 
 .data-label {
   font-size: 1.2rem;
